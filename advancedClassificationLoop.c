@@ -37,7 +37,7 @@ int isPalindrome(int num) {
     int totalNumbers = 0;
     int palindromNum = 0;
 
-     while (num > 0) {
+    while (num > 0) {
         totalNumbers++;
         num /= 10;
     }

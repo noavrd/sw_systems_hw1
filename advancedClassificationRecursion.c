@@ -8,14 +8,24 @@ int countNumbersRecursive(int num) {
 
 }
 
-// int checkPowerOfNum(int num, int base) {
-//     if (num == 0) {
-//         return 0;
-//     }
+int checkPowerOfNumRecursive(int totalNumbers, int digit) {
+    if (totalNumbers == 0) {
+        return 0;
+    }
 
-//     return base * checkPowerOfNum(base, num -1);
+    return digit * checkPowerOfNumRecursive(digit, totalNumbers -1);
 
-// }
+}
+
+int armstrongRecursive(int num, int totalNumbers) {
+    if (num == 0) {
+        return 0;
+    }
+
+    int digit = num % 10;
+    int digitPow = checkPowerOfNumRecursive(totalNumbers, digit);
+    return digitPow + armstrongRecursive(num / 10, totalNumbers);
+}
 
 int isArmstrong(int num) {
     int total = 0;
@@ -27,17 +37,7 @@ int isArmstrong(int num) {
 
     num = numSum;
 
-    while (num > 0) {
-        int digit = num % 10;
-        int digitPow = 1;
-
-        for (int i = 1; i <= totalNumbers; i++) {
-            digitPow *= digit;
-        }
-
-        total += digitPow;
-        num /= 10;
-    }
+   total = armstrongRecursive(num, totalNumbers);
 
     if (numSum == total) {
         return 1;
@@ -45,6 +45,14 @@ int isArmstrong(int num) {
 
     return 0;
 }
+
+// int reverseNumRecursive(int num, int totalNumbers) {
+//     if (num == 0) {
+//         return 0;
+//     }
+
+//     return reverseNumRecursive()
+// }
 
 int isPalindrome(int num) {
 

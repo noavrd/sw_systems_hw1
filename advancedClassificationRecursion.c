@@ -19,6 +19,7 @@ int countNumbersRecursive(int num) {
 
 int isArmstrong(int num) {
     int total = 0;
+    
     int numSum = num;
     int totalNumbers = 0;
 

@@ -14,13 +14,13 @@ clean :
 
 
 main.o : main.c NunClass.h
-	gcc -c main.c -o main.o
+	gcc -wall -g -c main.c -o main.o
 
 basicClassification.o : basicClassification.c NunClass.h
-	gcc -c basicClassification.c -o basicClassification.o
+	gcc -Wall -g -c basicClassification.c -o basicClassification.o
 
 advancedClassificationRecursion.o : advancedClassificationRecursion.c NunClass.h
-	gcc -c advancedClassificationRecursion.c -o advancedClassificationRecursion.o
+	gcc -Wall -g -fPIC -c advancedClassificationRecursion.c -o advancedClassificationRecursion.o
 
 advancedClassificationLoop.o : advancedClassificationLoop.c NunClass.h
 	gcc -c advancedClassificationLoop.c -o advancedClassificationLoop.o
@@ -34,7 +34,7 @@ libclassrec.a : advancedClassificationRecursion.o basicClassification.o
 	ar -rc libclassrec.a advancedClassificationRecursion.o basicClassification.o
 
 mains : main.o libclassrec.a
-	gcc -o mains main.o -L. libclassrec.a
+	gcc  -wall -o mains main.o libclassrec.a -lm
 
 #dyn#
 
@@ -47,19 +47,17 @@ advancedClassificationRecursionDYN.o : advancedClassificationRecursion.c NunClas
 advancedClassificationLoopDYN.o : advancedClassificationLoop.c NunClass.h
 	gcc -c -fpic advancedClassificationLoop.c -o advancedClassificationLoopDYN.o
 
-libclassrec.so : advancedClassificationRecursionDYN.o basicClassificationDYN.o
-	gcc advancedClassificationRecursionDYN.o basicClassificationDYN.o -shared -o libclassrec.so
-	export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+libclassrec.so: basicClassification.o advancedClassificationRecursion.o
+	gcc -shared -fPIC -o libclassrec.so basicClassification.o advancedClassificationRecursion.o
 
-libclassloops.so : advancedClassificationLoopDYN.o basicClassificationDYN.o
-	gcc advancedClassificationLoopDYN.o basicClassificationDYN.o -shared -o libclassloops.so
-	export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+libclassloops.so: basicClassification.o advancedClassificationLoop.o
+	gcc -shared -fPIC -o libclassloops.so basicClassification.o advancedClassificationLoop.o
 
 maindloop : main.o libclassloops.so
-	gcc -o maindloop main.o -L. ./libclassloops.so
+	gcc -wall -g -o maindloop main.o ./libclassloops.so -lm
 
 maindrec : main.o libclassrec.so
-	gcc -o maindrec main.o -L. ./libclassrec.so
+	gcc -wall -g -o maindrec main.o ./libclassrec.so -lm
 
 
 

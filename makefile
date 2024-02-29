@@ -15,7 +15,7 @@ clean :
 
 
 main.o : main.c NumClass.h
-	gcc -wall -g -c main.c -o main.o
+	gcc -Wall -g -c main.c -o main.o
 
 basicClassification.o : basicClassification.c NumClass.h
 	gcc -Wall -g -c basicClassification.c -o basicClassification.o
@@ -36,7 +36,7 @@ libclassrec.a : advancedClassificationRecursion.o basicClassification.o
 	ar -rc libclassrec.a advancedClassificationRecursion.o basicClassification.o
 
 mains : main.o libclassrec.a
-	gcc  -wall -o mains main.o libclassrec.a -lm
+	gcc  -Wall -o mains main.o libclassrec.a -lm
 
 #dyn#
 
@@ -56,10 +56,10 @@ libclassloops.so: basicClassification.o advancedClassificationLoop.o
 	gcc -shared -fPIC -o libclassloops.so basicClassification.o advancedClassificationLoop.o
 
 maindloop : main.o libclassloops.so
-	gcc -wall -g -o maindloop main.o ./libclassloops.so -lm
+	gcc -Wall -g -o maindloop main.o ./libclassloops.so -lm
 
 maindrec : main.o libclassrec.so
-	gcc -wall -g -o maindrec main.o ./libclassrec.so -lm
+	gcc -Wall -g -o maindrec main.o ./libclassrec.so -lm
 
 
 

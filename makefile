@@ -1,4 +1,5 @@
-.PHONEY : all clean loops recursives loopd recursived# לא קובץ
+.PHONY : all clean loops recursives loopd recursived
+
 loops : libclassloops.a
 recursives : libclassrec.a
 recursived : libclassrec.so
@@ -13,17 +14,18 @@ clean :
 	rm mains maindloop maindrec
 
 
-main.o : main.c NunClass.h
+main.o : main.c NumClass.h
 	gcc -wall -g -c main.c -o main.o
 
-basicClassification.o : basicClassification.c NunClass.h
+basicClassification.o : basicClassification.c NumClass.h
 	gcc -Wall -g -c basicClassification.c -o basicClassification.o
 
-advancedClassificationRecursion.o : advancedClassificationRecursion.c NunClass.h
+advancedClassificationRecursion.o : advancedClassificationRecursion.c NumClass.h
 	gcc -Wall -g -fPIC -c advancedClassificationRecursion.c -o advancedClassificationRecursion.o
 
-advancedClassificationLoop.o : advancedClassificationLoop.c NunClass.h
-	gcc -c advancedClassificationLoop.c -o advancedClassificationLoop.o
+advancedClassificationLoop.o : advancedClassificationLoop.c NumClass.h
+	gcc -Wall -g -fPIC -c advancedClassificationLoop.c -o advancedClassificationLoop.o
+
 
 # static #
 
@@ -38,13 +40,13 @@ mains : main.o libclassrec.a
 
 #dyn#
 
-basicClassificationDYN.o : basicClassification.c NunClass.h
+basicClassificationDYN.o : basicClassification.c NumClass.h
 	gcc -c -fpic basicClassification.c -o basicClassificationDYN.o
 
-advancedClassificationRecursionDYN.o : advancedClassificationRecursion.c NunClass.h
+advancedClassificationRecursionDYN.o : advancedClassificationRecursion.c NumClass.h
 	gcc -c -fpic advancedClassificationRecursion.c -o advancedClassificationRecursionDYN.o
 
-advancedClassificationLoopDYN.o : advancedClassificationLoop.c NunClass.h
+advancedClassificationLoopDYN.o : advancedClassificationLoop.c NumClass.h
 	gcc -c -fpic advancedClassificationLoop.c -o advancedClassificationLoopDYN.o
 
 libclassrec.so: basicClassification.o advancedClassificationRecursion.o
